@@ -1,29 +1,25 @@
+<!-- File: settings.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TestSite</title>
+    <title>Settings - TestSite</title>
 </head>
 <body>
     <h1>TestSite Settings</h1>
 
-    <!-- Checkbox -->
     <label>
         <input type="checkbox" id="enableCheckbox"> Enable
     </label>
     <br><br>
 
-    <!-- Slider -->
     <label for="speedSlider">Speed:</label>
     <input type="range" id="speedSlider" min="0" max="100" value="50">
     <span id="speedValue">50</span>
     <br><br>
 
-    <!-- Button to save -->
     <button onclick="saveSettings()">Save Settings</button>
-    <a href="settings.html">Go to Settings</a>
 
-    <!-- Display JSON -->
     <pre id="output"></pre>
 
     <script>
@@ -32,7 +28,6 @@
         const speedValue = document.getElementById('speedValue');
         const output = document.getElementById('output');
 
-        // Update visible speed value
         speedSlider.oninput = () => {
             speedValue.textContent = speedSlider.value;
         };
@@ -43,7 +38,6 @@
                 speed: parseInt(speedSlider.value)
             };
 
-            // Show JSON output on page
             output.textContent = JSON.stringify(settings, null, 2);
         }
     </script>
