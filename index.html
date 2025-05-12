@@ -5,6 +5,46 @@
     <title>TestSite</title>
 </head>
 <body>
-    <h1>Welcome to TestSite</h1>
+    <h1>TestSite Settings</h1>
+
+    <!-- Checkbox -->
+    <label>
+        <input type="checkbox" id="enableCheckbox"> Enable
+    </label>
+    <br><br>
+
+    <!-- Slider -->
+    <label for="speedSlider">Speed:</label>
+    <input type="range" id="speedSlider" min="0" max="100" value="50">
+    <span id="speedValue">50</span>
+    <br><br>
+
+    <!-- Button to save -->
+    <button onclick="saveSettings()">Save Settings</button>
+
+    <!-- Display JSON -->
+    <pre id="output"></pre>
+
+    <script>
+        const enableCheckbox = document.getElementById('enableCheckbox');
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        const output = document.getElementById('output');
+
+        // Update visible speed value
+        speedSlider.oninput = () => {
+            speedValue.textContent = speedSlider.value;
+        };
+
+        function saveSettings() {
+            const settings = {
+                enable: enableCheckbox.checked,
+                speed: parseInt(speedSlider.value)
+            };
+
+            // Show JSON output on page
+            output.textContent = JSON.stringify(settings, null, 2);
+        }
+    </script>
 </body>
 </html>
