@@ -21,7 +21,7 @@
 
     <!-- Button to save -->
     <button onclick="saveSettings()">Save Settings</button>
-    <a href="settings.html">Go to Settings</a>
+    <a id="settingsLink" href="settings.html" target="_blank">Go to Settings</a>
 
     <!-- Display JSON -->
     <pre id="output"></pre>
@@ -31,6 +31,23 @@
         const speedSlider = document.getElementById('speedSlider');
         const speedValue = document.getElementById('speedValue');
         const output = document.getElementById('output');
+        const settingsLink = document.getElementById('settingsLink');
+
+        // Load settings from localStorage on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('settings');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    enableCheckbox.checked = !!data.enable;
+                    speedSlider.value = data.speed ?? speedSlider.value;
+                    speedValue.textContent = speedSlider.value;
+                    output.textContent = JSON.stringify(data, null, 2);
+                } catch (e) {
+                    console.error('Failed to parse saved settings');
+                }
+            }
+        });
 
         // Update visible speed value
         speedSlider.oninput = () => {
@@ -42,6 +59,8 @@
                 enable: enableCheckbox.checked,
                 speed: parseInt(speedSlider.value)
             };
+
+            localStorage.setItem('settings', JSON.stringify(settings));
 
             // Show JSON output on page
             output.textContent = JSON.stringify(settings, null, 2);
