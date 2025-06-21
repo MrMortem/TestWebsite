@@ -1,44 +1,20 @@
-<!-- File: settings.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Settings - TestSite</title>
+    <title>Current Settings</title>
 </head>
 <body>
-    <h1>TestSite Settings</h1>
-
-    <label>
-        <input type="checkbox" id="enableCheckbox"> Enable
-    </label>
-    <br><br>
-
-    <label for="speedSlider">Speed:</label>
-    <input type="range" id="speedSlider" min="0" max="100" value="50">
-    <span id="speedValue">50</span>
-    <br><br>
-
-    <button onclick="saveSettings()">Save Settings</button>
-
-    <pre id="output"></pre>
-
+    <h1>Current Settings</h1>
+    <pre id="output">Loading...</pre>
+    <p><a href="index.html">Back to main page</a></p>
     <script>
-        const enableCheckbox = document.getElementById('enableCheckbox');
-        const speedSlider = document.getElementById('speedSlider');
-        const speedValue = document.getElementById('speedValue');
         const output = document.getElementById('output');
-
-        speedSlider.oninput = () => {
-            speedValue.textContent = speedSlider.value;
-        };
-
-        function saveSettings() {
-            const settings = {
-                enable: enableCheckbox.checked,
-                speed: parseInt(speedSlider.value)
-            };
-
-            output.textContent = JSON.stringify(settings, null, 2);
+        const saved = localStorage.getItem('settings');
+        if (saved) {
+            output.textContent = saved;
+        } else {
+            output.textContent = 'No settings saved';
         }
     </script>
 </body>
